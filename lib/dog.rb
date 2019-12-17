@@ -47,5 +47,7 @@ class Dog
   
      dog = DB[:conn].execute(" SELECT * FROM dogs WHERE name = ? AND breed = ?", name, breed)
      binding.pry
+     if !dog.empty?
+       
   end
 end
