@@ -47,7 +47,7 @@ class Dog
     sql = <<-SQL 
     SELECT * FROM dogs WHERE name = ?,breed = ? 
     SQL
-     dog = DB[:conn].execute(sql,name,breed)
+     dog = DB[:conn].execute(sql, name, breed)
      binding.pry
   end
 end
