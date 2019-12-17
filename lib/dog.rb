@@ -48,6 +48,6 @@ class Dog
     SELECT * FROM dogs WHERE name = ?,breed = ? 
     SQL
      dog = DB[:conn].execute(sql,name,breed)
-     if !dog.empty?
+     binding.pry
   end
 end
