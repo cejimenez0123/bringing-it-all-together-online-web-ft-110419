@@ -58,4 +58,7 @@ class Dog
     dog=DB[:conn].execute("SELECT * FROM dogs WHERE name = ?",name).flatten
     self.new_from_db(dog)
   end
+  def update
+    
+  end
 end
