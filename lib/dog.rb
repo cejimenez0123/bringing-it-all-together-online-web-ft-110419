@@ -1,10 +1,10 @@
 require "pry"
 class Dog 
   attr_accessor :name, :breed, :id
-  def initialize(hash,id=nil)
+  def initialize(id: nil, name:, breed:)
     @id = id
-    @name = hash[:name]
-    @breed = hash[:breed]
+    @name = name
+    @breed = breed
   end
   def self.create_table
     sql = <<-SQL
@@ -35,6 +35,22 @@ class Dog
     id = row[0]
     name = row[1]
     breed = row[2]
-    Dog.new(id: id, name: name, breed: breed)
+    self.new(id: id, name: name, breed: breed)
+  end
+  def self.find_by_id(id)
+    
+    DB[:conn].execute( "SELECT * FROM dogs WHERE id = ? LIMIT 1",id).map do |row|
+      self.new_from_db(row)
+    end.first
+  end
+  def self.find_or_create_by(name:,breed:)
+    sql = <<-SQL 
+    SELECT * FROM dogs WHERE name = ?,breed = ? IF EXISTS
+    SQL
+    if DB[:conn].execute(sql,name,breed)
+      DB[:conn].execute(sql,name,breed)
+    else
+      self.new(:name, :breed)
+    end
   end
 end
