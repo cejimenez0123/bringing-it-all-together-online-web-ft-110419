@@ -45,7 +45,7 @@ class Dog
   end
   def self.find_or_create_by(name:,breed:)
     sql = <<-SQL 
-    SELECT * FROM dogs WHERE name = ?,breed = ? IF EXISTS
+    SELECT * FROM dogs WHERE name = ?,breed = ? 
     SQL
     if DB[:conn].execute(sql,name,breed)
       DB[:conn].execute(sql,name,breed)
